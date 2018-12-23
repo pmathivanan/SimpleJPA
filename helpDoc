@@ -1,0 +1,15 @@
+docker build . -t mysql:latest
+docker run -d -p 8081:3306 --name mycontainerdb mysql:latest
+docker logs mycontainerdb
+
+
+docker build . -t myapp:latest
+docker run -d -p 8082:8080 --name mycontainerapp myapp:latest
+
+
+
+
+
+docker network create -d bridge --subnet 192.168.0.0/24 --gateway 192.168.0.1 dockernet
+
+--net=dockernet
