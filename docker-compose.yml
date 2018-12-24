@@ -1,27 +1,17 @@
 version: '3'
 services:
- mysql:
-  container_name: db
-  image: "mysql/mysql-server:latest"
-  volumes:
-  - ./dockerFiles/mydb/scripts:/docker-entrypoint-initdb.d
-  environment:
-   MYSQL_ROOT_PASSWORD: password
+ mysqldb:
+  container_name: mysqldb
+  image: "pmathivanan/mysqldb:2"
   ports:
-  - "8081:3306"
- myapp:
-  image: "pmathivanan/myspringbootapp:1"
-  ##volumes:
-  ##- ./build/libs/SimpleJPA-0.0.1-SNAPSHOT.jar var/www/app/
-  ##WORKDIR var/www/app
-  ##CMD ["java",  "-jar", "SimpleJPA-0.0.1-SNAPSHOT.jar"]
-  ##working_directory: var/www/app
-  ##command: ["cd","var/www/app"]
-  ##command: ["java",  "-jar", "SimpleJPA-0.0.1-SNAPSHOT.jar"]
+  - "8092:3306"
+ myspringbootapp:
+  container_name: myspringbootapp
+  image: "pmathivanan/myspringbootapp:4"
   ports:
-  - "8082:8080"
+  - "8091:8090"
   depends_on:
-  - db
+  - mysqldb
  
 
 
